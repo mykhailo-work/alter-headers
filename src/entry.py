@@ -1,6 +1,7 @@
 from workers import Response, fetch
 
 async def on_fetch(request):
+    request = request.headers.set("Host", "pluggedtable.com")
     return await fetch(request)
 
 # async def on_fetch(request):
