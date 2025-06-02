@@ -10,7 +10,7 @@ async def on_fetch(request):
     # Create a new Request with the original request info and new headers
     new_request = Request.new(request, {"headers": new_headers})
     
-    return await fetch(new_request)
+    print(new_request.headers)
 
 
 # async def on_fetch(request):
