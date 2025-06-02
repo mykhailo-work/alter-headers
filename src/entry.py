@@ -6,15 +6,11 @@ async def on_fetch(request):
     new_headers = Headers.new(request.headers)
     # Set the new Host header
     new_headers.set("Host", "pluggedtable.com")
-    new_headers.set("Host2", "pluggedtable.com")
     
     # Create a new Request with the original request info and new headers
     new_request = Request.new(request, {"headers": new_headers})
-    print(new_request.headers)
     
-    # return await fetch(new_request)
-    headers_dict = {key: new_headers.get(key) for key in new_headers.keys()}
-    return Response(str(headers_dict), headers={"Content-Type": "application/json"})
+    return await fetch(new_request)
 
 
 # async def on_fetch(request):
