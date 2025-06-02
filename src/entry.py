@@ -2,9 +2,9 @@ from workers import fetch
 from js import Request, Headers
 from urllib.parse import urlparse, urlunparse
 
-async def on_fetch(request):
+async def on_fetch(request, env):
     url = urlparse(request.url)
-    modified_url = urlunparse(url._replace(netloc="pluggedtable.com"))
+    modified_url = urlunparse(url._replace(netloc=env.API_HOST))
 
     new_headers = Headers.new(request.headers)
     new_headers.delete("host")
