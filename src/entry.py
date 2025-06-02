@@ -1,8 +1,17 @@
-from workers import Response, fetch
+from workers import fetch
+from js import Request, Headers
 
 async def on_fetch(request):
-    request = request.headers.set("Host", "pluggedtable.com")
-    return await fetch(request)
+    # Create a new Headers object, copying original headers
+    new_headers = Headers.new(request.headers)
+    # Set the new Host header
+    new_headers.set("Host", "pluggedtable.com")
+    
+    # Create a new Request with the original request info and new headers
+    new_request = Request.new(request, {"headers": new_headers})
+    
+    return await fetch(new_request)
+
 
 # async def on_fetch(request):
 #     response = await fetch("https://example.com")
