@@ -13,7 +13,8 @@ async def on_fetch(request):
     print(new_request.headers)
     
     # return await fetch(new_request)
-    return Response(new_request.headers)
+    headers_dict = {key: new_headers.get(key) for key in new_headers.keys()}
+    return Response(str(headers_dict), headers={"Content-Type": "application/json"})
 
 
 # async def on_fetch(request):
