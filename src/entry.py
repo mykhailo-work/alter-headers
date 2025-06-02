@@ -1,27 +1,14 @@
-from workers import fetch, Response
+from workers import fetch
 from js import Request, Headers
-
-# async def on_fetch(request):
-#     # Create a new Headers object, copying original headers
-#     new_headers = Headers.new(request.headers)
-#     # Set the new Host header
-#     new_headers.set("My-header", "pluggedtable.com")
-    
-#     # Create a new Request with the original request info and new headers
-#     new_request = Request.new(request, {"headers": new_headers})
-    
-#     return await fetch(new_request)
-
+from urllib.parse import urlparse, urlunparse
 
 async def on_fetch(request):
+    url = urlparse(request.url)
+    modified_url = urlunparse(url._replace(netloc="pluggedtable.com"))
+
     new_headers = Headers.new(request.headers)
     new_headers.delete("host")
 
-    new_headers.set("My-header", "pluggedtable.com")
-
-    new_request = Request.new("https://pluggedtable.com", {
-        "method": "GET",
-        "headers": new_headers,
-    })
+    new_request = Request.new(modified_url, {"headers": new_headers})
 
     return await fetch(new_request)
