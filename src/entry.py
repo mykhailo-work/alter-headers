@@ -5,7 +5,7 @@ async def on_fetch(request):
     # Create a new Headers object, copying original headers
     new_headers = Headers.new(request.headers)
     # Set the new Host header
-    new_headers.set("Host", "pluggedtable.com")
+    new_headers.set("My-header", "pluggedtable.com")
     
     # Create a new Request with the original request info and new headers
     new_request = Request.new(request, {"headers": new_headers})
