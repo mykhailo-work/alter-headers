@@ -1,4 +1,4 @@
-from workers import fetch
+from workers import fetch, Response
 from js import Request, Headers
 
 async def on_fetch(request):
@@ -12,7 +12,8 @@ async def on_fetch(request):
     new_request = Request.new(request, {"headers": new_headers})
     print(new_request.headers)
     
-    return await fetch(new_request)
+    # return await fetch(new_request)
+    return Response(new_request.headers)
 
 
 # async def on_fetch(request):
