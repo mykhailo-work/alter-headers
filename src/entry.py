@@ -10,8 +10,8 @@ async def on_fetch(request, env):
     headers.set("x-manatal-custom-hostname", custom_hostname)
 
     new_request = Request.new(url.toString(), method=request.method, headers=headers, body=request.body)
-    print(request.body)
-    print(request.headers)
-    print(request.headers.get("x-manatal-custom-hostname"))
+    print(new_request.body)
+    print(new_request.headers)
+    print(new_request.headers.get("x-manatal-custom-hostname"))
 
     return await fetch(new_request)
