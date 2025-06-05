@@ -4,4 +4,4 @@ compatibility_flags = ["python_workers"]
 compatibility_date = "2024-03-29"
 
 [vars]
-API_HOST = "pluggedtable.com"
+API_HOST = "fallback.pluggedtable.com"
