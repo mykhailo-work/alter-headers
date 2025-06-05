@@ -1,13 +1,12 @@
-from js import fetch, URL, Request, Headers
+from js import fetch, URL, Request, Response
+
 
 async def on_fetch(request, env):
     url = URL.new(request.url)
+    
+    custom_hostname = url.hostname
     url.hostname = env.API_HOST
 
-    # headers = Headers.new(request.headers)
-    # headers.set("Host", env.API_HOST)
-
-    # Recreate the request with the updated URL and headers
     new_request = Request.new(
         url.toString(),
         {
@@ -17,5 +16,10 @@ async def on_fetch(request, env):
             "redirect": "manual"
         }
     )
+    
+    response = await fetch(new_request)
+    
+    new_headers = response.headers
+    new_headers["x-custom-hostname"] = custom_hostname
 
-    return await fetch(new_request)
+    return Response(response.body, headers=new_headers)
