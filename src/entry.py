@@ -7,9 +7,13 @@ async def on_fetch(request, env):
     # headers = Headers.new(request.headers)
     # headers.set("Host", env.API_HOST)
 
+    # Recreate the request with the updated URL and headers
     new_request = Request.new(
-        request,
+        url.toString(),
         {
+            "method": request.method,
+            "headers": request.headers,
+            "body": await request.text() if request.method not in ["GET", "HEAD"] else None,
             "redirect": "manual"
         }
     )
