@@ -5,9 +5,11 @@ async def on_fetch(request, env):
     
     custom_hostname = url.hostname
     url.hostname = env.API_HOST
+    
+    headers = Headers.new(request.headers)
+    headers.set("x-manatal-custom-hostname", custom_hostname)
 
-    new_request = Request.new(url.toString(), method=request.method, headers=request.headers, body=request.body)
-    request.headers["x-manatal-custom-hostname"] = custom_hostname
+    new_request = Request.new(url.toString(), method=request.method, headers=headers, body=request.body)
     print(request.body)
     print(request.headers)
 
